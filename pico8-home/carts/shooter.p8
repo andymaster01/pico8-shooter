@@ -5,6 +5,7 @@ function _init()
     t = 0
 
     ship = { sp = 1, x = 60, y = 100, h = 4, p = 0, t = 0, imm = false,
+			 score = 0,
 			 box = {x1 = 0, y1 = 0, x2 = 7, y2 = 7} 
 		   }
     bullets = {}
@@ -165,6 +166,7 @@ function update_game()
 				explode(e.x, e.y)
 				sfx(2)
 				del(bullets, b)
+				ship.score += 1
 			end
 		end
 	end
@@ -189,7 +191,7 @@ function draw_game()
 		pset(st.x, st.y, 6)
 	end
 
-	print(ship.x, 9)
+	print(ship.score, 9)
 
 	if not ship.imm or t%8 < 4 then
 		spr(ship.sp, ship.x, ship.y)
