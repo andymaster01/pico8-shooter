@@ -6,6 +6,16 @@ function _init()
 		   }
     bullets = {}
     enemies = {}
+	explosions = {}
+	stars = {}
+
+	for i = 1, 128 do
+		add(stars, {
+			x = rnd(128), 
+			y = rnd(128),
+			s = rnd(2) + 1
+		})
+	end
 
     for i = 1, 4 do
         add(enemies, {
@@ -62,6 +72,10 @@ function coll(a,b)
 	return true
 end
 
+function explode(x,y)
+	add(explosions, {x=x, y=y,t=0})
+end
+
 function fire()
 	local b = {
 		sp = 2,
@@ -85,6 +99,20 @@ function update_game()
 		end
 	end
 
+	for st in all(stars) do
+		st.y += st.s
+		if st.y > 128 then
+			st.y = 0
+			st.x = rnd(128)
+		end
+	end
+
+	for ex in all(explosions) do
+		ex.t += 1
+		if ex.t == 13 then
+			del(explosions, ex)
+		end
+	end
 	
 	for e in all(enemies) do
 		e.x = e.r * sin(t/50) + e.m_x
@@ -111,12 +139,10 @@ function update_game()
 			if coll(b, e) then
 				del(enemies, e)
 				ship.p += 1
+				explode(e.x, e.y)
 			end
 		end
-
 	end
-
-	
 	
 	if (t%6<4) then
 		ship.sp = 0
@@ -133,10 +159,19 @@ end
 
 function draw_game()
 	cls()
+
+	for st in all(stars) do
+		pset(st.x, st.y, 6)
+	end
+
 	print(ship.p, 9)
 
 	if not ship.imm or t%8 < 4 then
 		spr(ship.sp, ship.x, ship.y)
+	end
+
+	for ex in all(explosions) do
+		circ(ex.x, ex.y, ex.t/3, ex.t%3)
 	end
 	
 	for b in all(bullets) do
