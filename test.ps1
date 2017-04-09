@@ -1,0 +1,1 @@
+$p8toolPath = ".\..\..\picotool\p8tool writep8"
