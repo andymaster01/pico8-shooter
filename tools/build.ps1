@@ -8,19 +8,33 @@ $cartFile = "pico8-home\carts\shooter.p8"
 $picoHome = "$($PSScriptRoot)\..\pico8-home"
 
 
-$type = $args[1]
-
-if($type -eq "build"){
+function build(){
     Write-Output $PSScriptRoot
     Write-Output "Building..."
     python $p8toolPath "build" $cartFile "--lua" $inputFile
     Write-Output "Done with $($cartFile)"
 }
-elseif($type -eq "run"){
+
+function run(){
     Write-Output "Running $($cartFile) ..."
     Write-Output "Home is $($picoHome)"
     &$pico8Path "-run" $cartFile "-home" $picoHome
 }
+
+
+$type = $args[1]
+
+if($type -eq "build"){
+    build
+}
+elseif($type -eq "run"){
+    run
+}
+elseif($type -eq "build-and-run"){
+    build
+    run
+}
 else {
     Write-Output "unknown"
 }
+

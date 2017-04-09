@@ -15,12 +15,19 @@
     "showOutput": "always",
      "tasks": [
         {
+            "taskName": "build-and-run",
+            "showOutput": "always",
+            "args": [
+                "build-and-run"
+            ],
+            "isBuildCommand": true
+        },
+        {
             "taskName": "build",
             "showOutput": "always",
             "args": [
                 "build"
-            ],
-            "isBuildCommand": true
+            ]
         },
         {
             "taskName": "run",
