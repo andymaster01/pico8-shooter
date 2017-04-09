@@ -3,7 +3,7 @@ $pico8Path = "d:\apps\pico-8\pico8.exe"
 
 
 $inputFile = "code\shooter.lua"
-$cartFile = "pico8-home\shooter.p8"
+$cartFile = "pico8-home\carts\shooter.p8"
 
 $picoHome = "$($PSScriptRoot)\..\pico8-home"
 
