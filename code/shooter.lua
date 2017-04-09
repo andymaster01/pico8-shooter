@@ -53,7 +53,7 @@ end
 
 function draw_over()
 	cls()
-	print("Game over", 50, 50, 4)
+	print("game over", 50, 50, 4)
 end
 
 function abs_box(s)
@@ -154,11 +154,13 @@ function update_game()
 		   del(bullets, b)
 		end
 
+		-- Checking for bullets hitting enemies
 		for e in all(enemies) do
 			if coll(b, e) then
 				del(enemies, e)
 				ship.p += 1
 				explode(e.x, e.y)
+				sfx(2)
 			end
 		end
 	end
