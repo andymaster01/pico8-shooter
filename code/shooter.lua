@@ -165,11 +165,11 @@ function update_game()
 	else
 		ship.sp = 1
 	end 
-	
-	if btn(0) then ship.x-=1 end
-	if btn(1) then ship.x+=1 end
-	if btn(2) then ship.y-=1 end
-	if btn(3) then ship.y+=1 end
+
+	if btn(0) and ship.x > 0 then ship.x-=1 end
+	if btn(1) and ship.x < 121 then ship.x+=1 end
+	if btn(2) and ship.y > 0 then ship.y-=1 end
+	if btn(3) and ship.y < 119 then ship.y+=1 end
 	if btnp(4) then fire() end	
 end
 
@@ -180,7 +180,7 @@ function draw_game()
 		pset(st.x, st.y, 6)
 	end
 
-	print(ship.p, 9)
+	print(ship.x, 9)
 
 	if not ship.imm or t%8 < 4 then
 		spr(ship.sp, ship.x, ship.y)
