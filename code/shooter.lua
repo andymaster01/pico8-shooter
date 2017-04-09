@@ -1,7 +1,7 @@
 function _init()
     t = 0
 
-    ship = { sp = 1, x = 60, y = 100, h = 3, p = 0,
+    ship = { sp = 1, x = 60, y = 100, h = 3, p = 0, t = 0, imm = false,
 			 box = {x1 = 0, y1 = 0, x2 = 7, y2 = 7} 
 		   }
     bullets = {}
@@ -16,6 +16,27 @@ function _init()
 			box = {x1 = 0, y1 = 0, x2 = 7, y2 = 7} 
   	    })
     end
+
+	start()
+end
+
+function start()
+	_update = update_game
+	_draw = draw_game
+end
+
+function game_over()
+	_update = update_over
+	_draw = draw_over
+end
+
+function update_over()
+
+end
+
+function draw_over()
+	cls()
+	print("Game over", 50, 50, 4)
 end
 
 function abs_box(s)
@@ -53,12 +74,29 @@ function fire()
 	add(bullets, b)
 end
 
-function _update()
+function update_game()
 	t = t + 1
+
+	if ship.imm then
+		ship.t += 1
+		if ship.t > 30 then
+			ship.imm = false
+			ship.t = 0
+		end
+	end
+
 	
 	for e in all(enemies) do
 		e.x = e.r * sin(t/50) + e.m_x
 		e.y = e.r * cos(t/50) + e.m_y
+
+		if coll(ship, e) and not ship.imm then
+			ship.imm = true
+			ship.h -= 1
+			if ship.h <= 0 then
+				game_over()
+			end
+		end
 	end
 	
 	for b in all(bullets) do
@@ -93,10 +131,13 @@ function _update()
 	if btnp(4) then fire() end	
 end
 
-function _draw()
+function draw_game()
 	cls()
 	print(ship.p, 9)
-	spr(ship.sp, ship.x, ship.y)
+
+	if not ship.imm or t%8 < 4 then
+		spr(ship.sp, ship.x, ship.y)
+	end
 	
 	for b in all(bullets) do
 		spr(b.sp, b.x, b.y)
