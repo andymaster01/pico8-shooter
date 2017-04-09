@@ -93,6 +93,7 @@ function fire()
 		box = {x1 = 2, y1 = 0, x2 = 5, y2 = 4} 
 	}
 	add(bullets, b)
+	sfx(1)
 end
 
 function update_game()
@@ -130,9 +131,11 @@ function update_game()
 		e.x = e.r * sin(e.d * t/50) + e.m_x
 		e.y = e.r * cos(t/50) + e.m_y
 
+		-- ship take hit
 		if coll(ship, e) and not ship.imm then
 			ship.imm = true
 			ship.h -= 1
+			sfx(0)
 			if ship.h <= 0 then
 				game_over()
 			end
