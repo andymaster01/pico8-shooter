@@ -18,7 +18,7 @@ function _init()
             m_y = 60 - i * 8,
             x = -32,
             y = -32,
-            r = 50
+            r = 10
   	    })
     end
 end
