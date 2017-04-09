@@ -1,4 +1,4 @@
-$p8toolPath = ".\..\..\picotool\p8tool"
+$p8toolPath = "d:\code\picotool\p8tool"
 $pico8Path = "d:\apps\pico-8\pico8.exe"
 
 
