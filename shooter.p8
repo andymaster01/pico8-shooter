@@ -2,7 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 8
 __lua__
 function _init()
-		t=0
+	t=0
 
   ship = {
   sp=1,
@@ -17,7 +17,7 @@ function _init()
     m_y=60-i*8,
     x=-32,
     y=-32,
-    r=12
+    r=30
   	})
   end
 end
