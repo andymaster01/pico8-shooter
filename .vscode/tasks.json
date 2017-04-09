@@ -11,13 +11,23 @@
         "-File",
         "${cwd}/test.ps1"
     ],
-    "taskSelector": "-task",
+    "taskSelector": "-task ",
     "showOutput": "always",
      "tasks": [
         {
             "taskName": "build",
             "showOutput": "always",
+            "args": [
+                "build"
+            ],
             "isBuildCommand": true
+        },
+        {
+            "taskName": "run",
+            "showOutput": "always",
+            "args": [
+                "run"
+            ]
         }
     ]
 }
