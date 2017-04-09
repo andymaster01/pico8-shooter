@@ -161,6 +161,7 @@ function update_game()
 				ship.p += 1
 				explode(e.x, e.y)
 				sfx(2)
+				del(bullets, b)
 			end
 		end
 	end
