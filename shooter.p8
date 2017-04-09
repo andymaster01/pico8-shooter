@@ -2,66 +2,69 @@ pico-8 cartridge // http://www.pico-8.com
 version 8
 __lua__
 function _init()
-	t=0
+    t = 0
 
-  ship = {
-  sp=1,
-  x=60,y=60,h=3}
-  bullets = {}
-  enemies = {}
+    ship = {
+        sp = 1,
+        x = 60,
+        y = 60,
+        h = 3
+    }
 
-		for i=1,10 do
-		 add(enemies, {
-    sp=3,
-    m_x=i*16,
-    m_y=60-i*8,
-    x=-32,
-    y=-32,
-    r=30
-  	})
-  end
+    bullets = {}
+    enemies = {}
+
+    for i = 1, 10 do
+        add(enemies, {
+            sp = 3,
+            m_x = i * 16,
+            m_y = 60 - i * 8,
+            x = -32,
+            y = -32,
+            r = 30
+  	    })
+    end
 end
 
 function fire()
 	local b = {
-		sp=2,
-		x=ship.x,
-		y=ship.y,
-		dx=0,
-		dy=-3
+		sp = 2,
+		x = ship.x,
+		y = ship.y,
+		dx = 0,
+		dy = -3
 	}
 	add(bullets, b)
 end
 
 function _update()
-	t=t+1
+	t = t + 1
 	
 	for e in all(enemies) do
-		e.x = e.r*sin(t/50) + e.m_x
-		e.y = e.r*cos(t/50) + e.m_y
+		e.x = e.r * sin(t/50) + e.m_x
+		e.y = e.r * cos(t/50) + e.m_y
 	end
 	
 	for b in all(bullets) do
-		b.x+=b.dx
-		b.y+=b.dy
+		b.x += b.dx
+		b.y += b.dy
 		if b.x < 0 or b.x > 128 or
 		   b.y < 0 or b.y > 128 then
 		   del(bullets, b)
 		end
 	end
 	
-	if(t%6<4) then
-	 ship.sp=0
+	if (t%6<4) then
+		ship.sp = 0
 	else
-		ship.sp=1
-	end
+		ship.sp = 1
+	end 
 	
 	if btn(0) then ship.x-=1 end
 	if btn(1) then ship.x+=1 end
- if btn(2) then ship.y-=1 end
+	if btn(2) then ship.y-=1 end
 	if btn(3) then ship.y+=1 end
-	if btnp(4) then fire() end
-	
+	if btnp(4) then fire() end	
 end
 
 function _draw()
@@ -77,15 +80,14 @@ function _draw()
 		spr(e.sp,e.x,e.y)
 	end
 	
-	for i=1,4 do
-		if i<=ship.h then
-			spr(4,80+6*i,3)
+	for i = 1,4 do
+		if i <= ship.h then
+			spr(4, 80 + 6 * i, 3)
 		else
- 		spr(5,80+6*i,3)
+ 			spr(5, 80 + 6 * i, 3)
+ 		end
  	end
- end
-		
-		
+			
 end
 __gfx__
 00000000000000000009900000000000080800000606000000000000000000000000000000000000000000000000000000000000000000000000000000000000
