@@ -9,7 +9,7 @@
         "Unrestricted",
         "-NoProfile",
         "-File",
-        "${cwd}/test.ps1"
+        "${cwd}/tools/build.ps1"
     ],
     "taskSelector": "-task ",
     "showOutput": "always",
