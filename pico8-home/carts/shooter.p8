@@ -4,7 +4,7 @@ __lua__
 function _init()
     t = 0
 
-    ship = { sp = 1, x = 60, y = 100, h = 3, p = 0, t = 0, imm = false,
+    ship = { sp = 1, x = 60, y = 100, h = 4, p = 0, t = 0, imm = false,
 			 box = {x1 = 0, y1 = 0, x2 = 7, y2 = 7} 
 		   }
     bullets = {}
@@ -20,17 +20,24 @@ function _init()
 		})
 	end
 
-    for i = 1, 4 do
+	start()
+end
+
+function respawn()
+	local n = flr(rnd(9)) + 2
+	for i = 1, n do
+		local d = -1
+		if rnd(1) < 0.5 then d=1 end
         add(enemies, {
             sp = 3,
 			r = 12,
-            m_x = i * 16, m_y = 60 - i * 8,
-            x = -32,  y = -32,
+			d = d,
+            m_x = i * 16, m_y = -20 - i * 8,
+            x = -32, y = -32,
 			box = {x1 = 0, y1 = 0, x2 = 7, y2 = 7} 
   	    })
-    end
+	end
 
-	start()
 end
 
 function start()
@@ -116,9 +123,14 @@ function update_game()
 			del(explosions, ex)
 		end
 	end
+
+	if #enemies <= 0 then
+		respawn()
+	end
 	
 	for e in all(enemies) do
-		e.x = e.r * sin(t/50) + e.m_x
+		e.m_y += 1.3
+		e.x = e.r * sin(e.d * t/50) + e.m_x
 		e.y = e.r * cos(t/50) + e.m_y
 
 		if coll(ship, e) and not ship.imm then
@@ -127,6 +139,10 @@ function update_game()
 			if ship.h <= 0 then
 				game_over()
 			end
+		end
+
+		if e.y >= 150 then
+			del(enemies, e)
 		end
 	end
 	
